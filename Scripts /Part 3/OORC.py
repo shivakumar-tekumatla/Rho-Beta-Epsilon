@@ -1,7 +1,7 @@
 import numpy as np 
 from collections import deque
 class Robot:
-    def __init__(self,robot_position=(0,0)) -> None:
+    def __init__(self,robot_position=(0,0),robot_face="N") -> None:
         self.lin_speed = 1  #grid per sec 
         self.ang_speed = 1  #quarter turn per sec 
         self.robot_position = robot_position #by default starts at (0,0)
@@ -9,13 +9,13 @@ class Robot:
         self.max_y_cells = 20 
         self.time = 0 #keeping track of time in seconds 
         self.curr_order = "NWSE" #this is the rotation order for the robot in positive direction 
-        self.robot_face = "N" # North in the beginning 
-        self.robot_face_ind = {"N":(0,1), #increase the x ind 
-                                "S":(0,-1), #decrease the x ind 
-                                "E":(-1,0), #decrease the y ind 
-                                "W":(1,0)#decrease the y ind
+        self.robot_face = robot_face # North in the beginning 
+        self.robot_face_ind = {"N":(0,1), #increase the y ind 
+                                "S":(0,-1), #decrease the y ind 
+                                "E":(1,0), #Increase the x ind 
+                                "W":(-1,0) #decrease the x ind
                                 } # based on the face of the robot , do the corresponding index increment 
-        pass
+        pass 
     def drive(self,num_cells)->str:
         prev_position = self.robot_position #storing the previous position before doing any operation 
         def is_goal_walkable(goal):

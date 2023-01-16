@@ -1,6 +1,7 @@
 from OORC import Robot
 import numpy as np  
 import re 
+import os 
 
 def read_instructions():
     with open("instructions.txt","r") as file:
@@ -8,44 +9,44 @@ def read_instructions():
     return instructions
 
 def separate_command(command):
+    #separated the command to abstract the float and string 
+    # for some commands there is no float 
     try:
         num = [float(s) for s in re.findall(r'-?\d+\.?\d*', command)]
         return command.split(str(num[0])[0])[0], num[0]  #string,flt
     except:
         return command,None
 
-def main():
-    #first create a grid of all the cells
-    max_x_cells = 20 
-    max_y_cells = 20 
-    x = np.arange(0,max_x_cells+1,1)
-    y = np.arange(0,max_y_cells+1,1)
-    xc,yc = np.meshgrid(x, y)
+def write_log(log):
+    #write log data to log.txt 
+    with open("log.txt","a") as file:
+        file.write(log+"\n")
 
-if __name__ == "__main__":
-    
-    robot = Robot()
+def main():
+    robot = Robot(robot_position=(0,0),robot_face = "N") #assuming that the robot is starting at (0,0) facing north(positive y axis)
     commands = {"D":robot.drive,
                 "T":robot.turn,
                 "S":robot.stop,
                 "ES":robot.eStop,
                 "SS":robot.setLinSpeed,
                 "ST":robot.setAngSpeed,
-                "UL":robot.ultraSound}
+                "UL":robot.ultraSound} # Functions will be called based on this mapping
     instructions = list(map(lambda x:x.strip(),read_instructions())) #reading the instructions and stripping the unnecessary "\n"
-    start = (0,0) # starting cell 
-    robot_face = "N" #This variable keeps track of the robot facing direction based on the rotation . N- North , E- East , S- South , W - West 
-    """
-    with open("log.txt","w") as log:
-        log.write("Time: 0 Sec Position: (0,0) Heading: N Last Action: Start")
-    """
-    for ins in instructions:
-        print(robot.robot_face)
-        cmd,flt = separate_command(ins)
+    #delete the log file if there is one already 
+    if os.path.exists("log.txt"):
+        os.remove("log.txt")
+    #write the first log 
+    write_log(f"Time: {0} sec Position: {robot.robot_position} Heading: {robot.robot_face} Last Action: Start")
+    for ins in instructions: #reading each command 
+        # print(robot.robot_face)
+        cmd,flt = separate_command(ins)  # separating the command 
         # print(cmd,flt)
         if flt:
-            print(commands[cmd](flt))
+            log = commands[cmd](flt)
         else:
-            print(commands[cmd]())
+            log = commands[cmd]()
+        if log:
+            write_log(log) #writing the log data to the logfile 
 
-        
+if __name__ == "__main__":
+    main()
