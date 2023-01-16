@@ -1,0 +1,13 @@
+Time: 0 sec Position: (0, 0) Heading: N Last Action: Start
+Time: 5.0 sec Position: (0, 5) Heading: N Last Action: Drove (0, 0) -> (0, 5)
+Time: 6.0 sec Position: (0, 5) Heading: E Last Action: Turned N -> E
+Time: 7.0 sec Position: (0, 5) Heading: E Last Action: Stopped at (0, 5)
+Time: 7.0 sec Position: (0, 5) Heading: E Last Action: Set the Lin speed 1 -> 2.0
+Time: 7.0 sec Position: (0, 5) Heading: E Last Action: Set the Ang speed 1 -> 0.5
+Time: 10.0 sec Position: (6, 5) Heading: E Last Action: Drove (0, 5) -> (6, 5)
+Time: 12.0 sec Position: (6, 5) Heading: N Last Action: Turned E -> N
+Time: 13.0 sec Position: (6, 7) Heading: N Last Action: Drove (6, 5) -> (6, 7)
+Time: 15.0 sec Position: (6, 7) Heading: W Last Action: Turned N -> W
+Time: 17.5 sec Position: (1, 7) Heading: W Last Action: Drove (6, 7) -> (1, 7)
+Time: 17.5 sec Position: (1, 7) Heading: W Last Action: Shutting Down
+Time: 17.5 sec Position: (1, 7) Heading: W Last Action: Turned W -> W
